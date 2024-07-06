@@ -1,0 +1,7 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/.vs
+/Music_Store_Management/.vs/Music_Store_Management
+/Music_Store_Management/Music_Store_Management/obj
