@@ -26,14 +26,16 @@ namespace Music_Store_Management
 
             app.UseAuthorization();
 
+            app.MapControllers();
 
             app.MapControllerRoute(
                 name: "default",
                 pattern: "{controller=Home}/{action=Index}/{id?}");
 
-            app.MapControllerRoute(
-               name: "MoviesByReleaseDate",
-               pattern: "{controller=Movies}/{action=ByReleaseDate}/{year:int:range(2015,2016)}/{month:regex(^\\d{{2}}$)}");
+            //Convention-based routing
+            //app.MapControllerRoute(
+            //   name: "MoviesByReleaseDate",
+            //   pattern: "{controller=Movies}/{action=ByReleaseDate}/{year:int:range(2015,2016)}/{month:regex(^\\d{{2}}$)}");
 
             app.Run();
         }

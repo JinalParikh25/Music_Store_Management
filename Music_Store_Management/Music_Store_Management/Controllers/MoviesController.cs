@@ -32,6 +32,7 @@ namespace Music_Store_Management.Controllers
             return Content("id="+  id);
         }
 
+        [Route("movies/released/{year}/{month:regex(^\\d{{2}}):range(1,12)}")]
         public IActionResult ByReleaseDate(int year,int month) {
 
             return Content(string.Format("year={0}&month={1}", year,month));
