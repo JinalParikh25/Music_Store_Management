@@ -1,3 +1,6 @@
+using Microsoft.EntityFrameworkCore;
+using Music_Store_Management.context;
+
 namespace Music_Store_Management
 {
     public class Program
@@ -5,6 +8,8 @@ namespace Music_Store_Management
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
+
+            builder.Services.AddDbContext<MusicStoreContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("connections")));
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
