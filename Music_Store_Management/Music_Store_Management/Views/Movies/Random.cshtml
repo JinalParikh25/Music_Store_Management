@@ -1,8 +1,28 @@
-﻿@model Music_Store_Management.Models.Movie
+﻿@model Music_Store_Management.ViewModels.RandomViewModel
 @{
     ViewData["Title"] = "Random";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>@Model.Name</h1>
+@{
+    var className = Model.CustomerList.Count > 5 ? "Popular" : null;
+}
+
+<h1 class="className">@Model.Movie.Name</h1>
+@if(Model.CustomerList.Count == 0)
+{
+    <text>No customer</text>
+}
+else
+{
+    <ul>
+        @{
+            foreach (var customer in @Model.CustomerList)
+            {
+                <li>@customer.Name</li>
+            }
+        }
+    </ul>
+}
+
 

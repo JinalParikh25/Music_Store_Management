@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Music_Store_Management.Models;
+using Music_Store_Management.ViewModels;
 using System.Globalization;
 
 namespace Music_Store_Management.Controllers
@@ -24,7 +25,19 @@ namespace Music_Store_Management.Controllers
                 Name = "Shrank!"
             };
 
-            return View(movie);
+            List<Customer> customer = new List<Customer>
+            {
+                new Customer{  Name = "xyz" },
+                new Customer { Name = "abc"}
+            };
+
+            RandomViewModel randomViewModel = new RandomViewModel()
+            {
+                Movie = movie,
+                CustomerList = customer,
+            };
+
+            return View(randomViewModel);
         }
 
         public IActionResult Edit(int id) 
