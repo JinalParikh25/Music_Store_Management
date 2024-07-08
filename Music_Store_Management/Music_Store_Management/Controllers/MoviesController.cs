@@ -1,4 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using Music_Store_Management.context;
 using Music_Store_Management.Models;
 using Music_Store_Management.ViewModels;
 using System.Globalization;
@@ -7,48 +9,52 @@ namespace Music_Store_Management.Controllers
 {
     public class MoviesController : Controller
     {
-        public IActionResult Index(int? pageIndex, string sortBy)
+        private MusicStoreContext _context;
+
+        public MoviesController(MusicStoreContext context)
         {
-            if (!pageIndex.HasValue)
-                pageIndex = 1;
-
-            if (string.IsNullOrEmpty(sortBy))
-                sortBy = "Name";
-
-            return Content(string.Format("pageIndex={0}&SortBy={1}", pageIndex, sortBy));
+            this._context = context;
         }
-
-        public IActionResult Random() {
-
-            Movie movie = new Movie()
-            {
-                Name = "Shrank!"
-            };
-
-            List<Customer> customer = new List<Customer>
-            {
-                new Customer{  Name = "xyz" },
-                new Customer { Name = "abc"}
-            };
-
-            RandomViewModel randomViewModel = new RandomViewModel()
-            {
-                Movie = movie,
-                CustomerList = customer,
-            };
-
-            return View(randomViewModel);
-        }
-
-        public IActionResult Edit(int id) 
+        public IActionResult Index()
         {
-            return Content("id="+  id);
+            List<Movie> movies = _context.Movies.Include(m => m.Genre).ToList();  
+            return View(movies);
         }
 
-        [Route("movies/released/{year}/{month:regex(^\\d{{2}}):range(1,12)}")]
-        public IActionResult ByReleaseDate(int year,int month) {
-
-            return Content(string.Format("year={0}&month={1}", year,month));
+        public IActionResult Details(int id)
+        {
+            Movie movie = _context.Movies.Include(m => m.Genre).FirstOrDefault(m => m.Id == id);
+            return View(movie);
         }
+        //public IActionResult Random() {
+
+        //    Movie movie = new Movie()
+        //    {
+        //        Name = "Shrank!"
+        //    };
+
+        //    List<Customer> customer = new List<Customer>
+        //    {
+        //        new Customer{  Name = "xyz" },
+        //        new Customer { Name = "abc"}
+        //    };
+
+        //    RandomViewModel randomViewModel = new RandomViewModel()
+        //    {
+        //        Movie = movie,
+        //        CustomerList = customer,
+        //    };
+
+        //    return View(randomViewModel);
+        //}
+
+        //public IActionResult Edit(int id) 
+        //{
+        //    return Content("id="+  id);
+        //
+        //public IActionResult ByReleaseDate(int year,int month) {
+
+        //    return Content(string.Format("year={0}&month={1}", year,month));
+        //}
     }
 }

@@ -5,4 +5,14 @@
 }
 
 <h1>@Model.Name</h1>
+<ul>
+    <li>Membership Type: @Model.MembershipType.Name</li>
+    @{
+        if(Model.BirthDate != null)
+        {
+            <li>BirthDate: @Model.BirthDate</li>
+        }
+    }
+    
+</ul>
 

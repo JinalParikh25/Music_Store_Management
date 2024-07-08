@@ -10,6 +10,7 @@ namespace Music_Store_Management.Models
         [StringLength(255)]
         public string Name { get; set; }
         public bool IsSubscribedToNewsletter { get; set; }
+        public DateOnly? BirthDate { get; set; }
         public MembershipType MembershipType { get; set; }
         public Byte MembershipTypeId { get; set; }
     }
