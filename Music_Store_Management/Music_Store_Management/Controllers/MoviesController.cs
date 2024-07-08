@@ -51,8 +51,7 @@ namespace Music_Store_Management.Controllers
         //public IActionResult Edit(int id) 
         //{
         //    return Content("id="+  id);
-        //}
-
+        //
         //public IActionResult ByReleaseDate(int year,int month) {
 
         //    return Content(string.Format("year={0}&month={1}", year,month));
