@@ -4,6 +4,7 @@ using Music_Store_Management.Services;
 using Music_Store_Management.ViewModels;
 using Music_Store_Management.context;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace Music_Store_Management.Controllers
 {
@@ -34,5 +35,46 @@ namespace Music_Store_Management.Controllers
 
                 return View(customer);
         }
+
+        public IActionResult New()
+        {
+            List<MembershipType> membershipTypes_list =  _context.MembershipTypes.ToList();
+
+            CustomerViewModel customerViewModel = new CustomerViewModel()
+            {
+                MembershipTypes = membershipTypes_list,
+                Customer = new Customer(),
+            };
+            
+            return View("CustomerForm",customerViewModel);
+        }
+
+        [HttpPost]
+        public IActionResult SubmitForm(Customer customer) {
+
+            if (customer.Id != 0)
+            {
+                _context.Customers.Update(customer);
+            }
+            else
+            {
+                _context.Customers.Add(customer);
+            }
+            _context.SaveChanges();
+            return RedirectToAction("Index");
+        }
+
+        public IActionResult Edit(int id) {
+           
+            CustomerViewModel customerViewModel = new CustomerViewModel
+            {
+                Customer = _context.Customers.FirstOrDefault(x => x.Id == id),
+                MembershipTypes = _context.MembershipTypes,
+
+            };
+
+            return View("CustomerForm", customerViewModel);
+        }
+
     }
 }

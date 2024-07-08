@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.EntityFrameworkCore;
 using Music_Store_Management.context;
 using Music_Store_Management.Models;
@@ -25,6 +26,50 @@ namespace Music_Store_Management.Controllers
         {
             Movie movie = _context.Movies.Include(m => m.Genre).FirstOrDefault(m => m.Id == id);
             return View(movie);
+        }
+
+        public IActionResult NewMovie()
+        {
+            MovieFormViewModel movieFormViewModel = new MovieFormViewModel()
+            {
+                Genres = _context.Genres.ToList(),
+                Movie = new Movie()
+            };
+            
+            return View("MovieForm",movieFormViewModel);
+        }
+
+        public IActionResult EditMovie(int id)
+        {
+            if (id != 0) {
+                MovieFormViewModel movieFormViewModel = new MovieFormViewModel()
+                {
+                    Genres = _context.Genres.ToList(),
+                    Movie = _context.Movies.FirstOrDefault(m => m.Id == id)
+                };
+                return View("MovieForm", movieFormViewModel);
+            }
+            else
+            {
+                return View("Error");
+            }
+
+            
+        }
+
+        [HttpPost]
+        public IActionResult SubmitMovieForm(Movie movie) 
+        {
+            if (movie.Id == 0)
+            {
+                _context.Movies.Add(movie);
+            }
+            else
+            {
+                _context.Movies.Update(movie);
+            }
+            _context.SaveChanges();
+            return RedirectToAction("Index");
         }
         //public IActionResult Random() {
 
