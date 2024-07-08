@@ -1,0 +1,14 @@
+﻿@model Music_Store_Management.Models.Movie
+@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>@Model.Name</h1>
+<ul>
+    <li>Genre:@Model.Genre.Name</li>
+    <li>Release Date:@Model.ReleaseDate.ToLongDateString()</li>
+    <li>Date Added:@Model.AddedDate</li>
+    <li>Number in stock:@Model.Stock</li>
+</ul>
+
