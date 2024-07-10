@@ -50,8 +50,20 @@ namespace Music_Store_Management.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public IActionResult SubmitForm(Customer customer) {
 
+            if (!ModelState.IsValid)
+            {
+                CustomerViewModel customerViewModel = new CustomerViewModel()
+                {
+                    Customer = customer,
+                    MembershipTypes= _context.MembershipTypes.ToList(),
+                };
+
+                ModelState.AddModelError("", "Please fix following errors!");
+                return View("CustomerForm", customerViewModel);
+            }
             if (customer.Id != 0)
             {
                 _context.Customers.Update(customer);
