@@ -33,7 +33,7 @@ namespace Music_Store_Management.Controllers
             MovieFormViewModel movieFormViewModel = new MovieFormViewModel()
             {
                 Genres = _context.Genres.ToList(),
-                Movie = new Movie()
+                
             };
             
             return View("MovieForm",movieFormViewModel);
@@ -41,11 +41,12 @@ namespace Music_Store_Management.Controllers
 
         public IActionResult EditMovie(int id)
         {
-            if (id != 0) {
-                MovieFormViewModel movieFormViewModel = new MovieFormViewModel()
+            Movie movie = _context.Movies.FirstOrDefault(m => m.Id == id);
+
+            if (movie != null) {
+                MovieFormViewModel movieFormViewModel = new MovieFormViewModel(movie)
                 {
                     Genres = _context.Genres.ToList(),
-                    Movie = _context.Movies.FirstOrDefault(m => m.Id == id)
                 };
                 return View("MovieForm", movieFormViewModel);
             }
@@ -58,6 +59,7 @@ namespace Music_Store_Management.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public IActionResult SubmitMovieForm(Movie movie) 
         {
             if (movie.Id == 0)

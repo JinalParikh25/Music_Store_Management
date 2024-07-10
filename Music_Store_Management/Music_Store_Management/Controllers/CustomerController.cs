@@ -50,6 +50,7 @@ namespace Music_Store_Management.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public IActionResult SubmitForm(Customer customer) {
 
             if (!ModelState.IsValid)

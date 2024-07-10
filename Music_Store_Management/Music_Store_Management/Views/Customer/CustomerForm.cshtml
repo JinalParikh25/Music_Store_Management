@@ -8,7 +8,7 @@
 
 <div asp-validation-summary="ModelOnly" ></div>
 
-<form asp-controller="Customer" asp-action="SubmitForm" method="post">
+<form asp-controller="Customer" asp-action="SubmitForm" method="post" asp-antiforgery="true">
 
     <div class="form-group">
         Name: <input type="text" asp-for="@Model.Customer.Name" class="form-control" />

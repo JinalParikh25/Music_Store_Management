@@ -1,5 +1,7 @@
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
 using Music_Store_Management.context;
+using Music_Store_Management.Profiles;
 
 namespace Music_Store_Management
 {
@@ -14,6 +16,8 @@ namespace Music_Store_Management
             // Add services to the container.
             builder.Services.AddControllersWithViews();
 
+            builder.Services.AddAutoMapper(typeof(CustomerProfile));
+
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
@@ -23,6 +27,8 @@ namespace Music_Store_Management
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
+
+            
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();

@@ -5,34 +5,38 @@
 }
 
 @{
-    var title = Model.Movie.Id == 0 ? "New Movie" : "Edit Movie";
+    var title = Model.Id == 0 ? "New Movie" : "Edit Movie";
 }
 <h1>@title</h1>
 
-<form asp-controller="Movies" asp-action="SubmitMovieForm" method="post">
+<form asp-controller="Movies" asp-action="SubmitMovieForm" method="post" asp-antiforgery="true">
     <div class="form-group">
-        <label asp-for="@Model.Movie.Name"></label>
-        <input type="text" asp-for="@Model.Movie.Name" class="form-control" />
+        <label asp-for="@Model.Name"></label>
+        <input type="text" asp-for="@Model.Name" class="form-control" />
+        <span asp-validation-for="@Model.Name"></span>
     </div>
 
     <div class="form-group">
-        <label asp-for="@Model.Movie.ReleaseDate"></label>
-        <input type="text" asp-for="@Model.Movie.ReleaseDate" class="form-control" />
+        <label asp-for="@Model.ReleaseDate"></label>
+        <input type="text" asp-for="@Model.ReleaseDate" class="form-control" />
+        <span asp-validation-for="@Model.ReleaseDate"></span>
     </div>
 
     <div class="form-group">
-        <label asp-for="@Model.Movie.GenreId"></label>
-        <select asp-for="@Model.Movie.GenreId" asp-items="@(new SelectList(Model.Genres,"Id","Name"))" class="form-control">
+        <label asp-for="@Model.GenreId"></label>
+        <select asp-for="@Model.GenreId" asp-items="@(new SelectList(Model.Genres,"Id","Name"))" class="form-control">
             <option>--select--</option>
         </select>
+        <span asp-validation-for="@Model.GenreId"></span>
     </div>
 
     <div class="form-group">
-        <label asp-for="@Model.Movie.Stock"></label>
-        <input type="text" asp-for="@Model.Movie.Stock" class="form-control" />
+        <label asp-for="@Model.Stock"></label>
+        <input type="text" asp-for="@Model.Stock" class="form-control" />
+        <span asp-validation-for="@Model.Stock"></span>
     </div>
 
-    <input type="hidden" asp-for="@Model.Movie.Id"/>
+    <input type="hidden" asp-for="@Model.Id"/>
     <div class="form-group">
         <button class="btn btn-primary">Submit</button>
     </div>

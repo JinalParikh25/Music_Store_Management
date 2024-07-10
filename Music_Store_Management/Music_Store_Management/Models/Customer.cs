@@ -14,7 +14,7 @@ namespace Music_Store_Management.Models
         [Display(Name ="Date of Birth")]
         [Min18yearsIfMembers]
         public DateOnly? BirthDate { get; set; }
-        public MembershipType MembershipType { get; set; }
+        public MembershipType? MembershipType { get; set; }
 
         [Display(Name="Membership Type")]
         public Byte MembershipTypeId { get; set; }
